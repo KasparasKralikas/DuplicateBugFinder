@@ -16,10 +16,9 @@ def load_vocabulary(vocab_file):
     print('can not load vocabulary')
     sys.exit(0)
 
-
 def load_emb_matrix(vocab_size, emb_size, data):
   embedding_weights = {}
-  f = open('../glove.42B.{}d.txt'.format(emb_size), 'r', encoding='utf8')
+  f = open('../glove.6B.{}d.txt'.format(emb_size), 'r', encoding='utf8')
   loop = tqdm(f)
   loop.set_description('Load Glove')
   for line in loop:
