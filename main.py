@@ -1,5 +1,6 @@
 import argparse
 import sys
+import time
 
 import torch.optim as optim
 
@@ -78,6 +79,7 @@ def test(data, top_k, features=None):
   test_data, _ = read_test_data(data)
   loop = tqdm(range(len(test_data)))
   loop.set_description('Testing')
+  start_time = time.time()
   for i in loop:
     idx = test_data[i]
     query = idx[0]
@@ -91,6 +93,8 @@ def test(data, top_k, features=None):
 
     corrects += len(set(candidates) & set(ground_truth))
     total += len(ground_truth)
+  duration_in_secs = end_time - start_time
+  print('Evaluated {} issues in {} seconds'.format(len(test_data), round(duration_in_secs, 5)))
 
   return float(corrects) / total
 
