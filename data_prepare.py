@@ -1,5 +1,5 @@
 import argparse
-import cPickle as pickle
+import pickle
 import json
 import os
 import random
@@ -21,7 +21,7 @@ UNK = 1
 def read_pairs():
   bug_pairs = []
   bug_ids = set()
-  with open(os.path.join(args.data, 'pairs.json'), 'r') as f:
+  with open(os.path.join(args.data, 'pairs.json'), 'r', encoding='utf8') as f:
     count = 0
     for line in f:
       count += 1
@@ -29,9 +29,9 @@ def read_pairs():
         break
 
       pair = json.loads(line)
-      bug_pairs.append((int(pair['bug1']), int(pair['bug2'])))
-      bug_ids.add(int(pair['bug1']))
-      bug_ids.add(int(pair['bug2']))
+      bug_pairs.append((int(pair['bug1']['$numberInt']), int(pair['bug2']['$numberInt'])))
+      bug_ids.add(int(pair['bug1']['$numberInt']))
+      bug_ids.add(int(pair['bug2']['$numberInt']))
   with open(os.path.join(args.data, 'bug_pairs.txt'), 'w') as f:
     for pair in bug_pairs:
       f.write("%d %d\n" % pair)
@@ -85,7 +85,7 @@ def normalized_data(bug_ids):
   bug_statuses = set()
   text = []
   normalized_bugs = open(os.path.join(args.data, 'normalized_bugs.json'), 'w')
-  with open(os.path.join(args.data, 'bugs.json'), 'r') as f:
+  with open(os.path.join(args.data, 'bugs.json'), 'r', encoding='utf8') as f:
     count = 0
     loop = tqdm(f)
     for line in loop:
