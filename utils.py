@@ -1,4 +1,4 @@
-import cPickle as pickle
+import pickle as pickle
 import os
 import sys
 
@@ -19,7 +19,7 @@ def load_vocabulary(vocab_file):
 
 def load_emb_matrix(vocab_size, emb_size, data):
   embedding_weights = {}
-  f = open('../glove.42B.{}d.txt'.format(emb_size), 'r')
+  f = open('../glove.42B.{}d.txt'.format(emb_size), 'r', encoding='utf8')
   loop = tqdm(f)
   loop.set_description('Load Glove')
   for line in loop:

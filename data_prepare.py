@@ -1,5 +1,5 @@
 import argparse
-import cPickle as pickle
+import pickle
 import json
 import os
 import random
